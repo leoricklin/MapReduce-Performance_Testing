@@ -11,8 +11,6 @@ $ cd /tmp
 $ sudo -u hdfs sh teragen.sh
 ...
 
-```
-
 ## TeraSort
 
 ```
