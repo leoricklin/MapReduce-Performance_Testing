@@ -9,7 +9,7 @@ https://community.hortonworks.com/articles/71173/benchmarking-hadoop-with-terage
 ```
 $ cd /tmp
 $ sudo -u hdfs sh teragen.sh
-...
+```
 
 ## TeraSort
 
