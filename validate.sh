@@ -8,13 +8,14 @@ trap "" HUP
 #fi
 
 #MR_EXAMPLES_JAR=/usr/hdp/2.3.2.0-2950/hadoop-mapreduce/hadoop-mapreduce-examples.jar
-MR_EXAMPLES_JAR=/usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-examples.jar
+#MR_EXAMPLES_JAR=/usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-examples.jar
+MR_EXAMPLES_JAR=/opt/cloudera/parcels/CDH/lib/hadoop-mapreduce/hadoop-mapreduce-examples.jar
 
 #SIZE=500G
 #SIZE=100G
-SIZE=1T
+#SIZE=1T
 #SIZE=1G
-#SIZE=10G
+SIZE=10G
 
 
 LOGDIR=logs
@@ -24,13 +25,12 @@ then
     mkdir ./$LOGDIR
 fi
 
-DATE=`date +%Y-%m-%d:%H:%M:%S`
+DATE=`date +%Y%m%d%H%M%S`
 
 RESULTSFILE="./$LOGDIR/teravalidate_results_$DATE"
 
-
-OUTPUT=/data/sandbox/poc/teragen/${SIZE}-terasort-output
-REPORT=/data/sandbox/poc/teragen/${SIZE}-terasort-report
+OUTPUT=/poc/teragen/${SIZE}-terasort-output
+REPORT=/poc/teragen/${SIZE}-terasort-report
 
 
 # teravalidate.sh
@@ -49,6 +49,6 @@ time hadoop jar $MR_EXAMPLES_JAR teravalidate \
 -Dyarn.app.mapreduce.am.resource.mb=1024 \
 -Dyarn.app.mapreduce.am.command-opts=-Xmx768m \
 -Dmapreduce.task.io.sort.mb=1 \
--Dmapred.map.tasks=185 \
--Dmapred.reduce.tasks=185 \
+-Dmapred.map.tasks=4 \
+-Dmapred.reduce.tasks=4 \
 ${OUTPUT} ${REPORT} >> $RESULTSFILE 2>&1

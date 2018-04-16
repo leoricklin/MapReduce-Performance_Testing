@@ -7,14 +7,15 @@ trap "" HUP
 #   exit 1
 #fi
 
-MR_EXAMPLES_JAR=/usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-examples.jar
+#MR_EXAMPLES_JAR=/usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-examples.jar
+MR_EXAMPLES_JAR=/opt/cloudera/parcels/CDH/lib/hadoop-mapreduce/hadoop-mapreduce-examples.jar
 
 
 #SIZE=500G
 #SIZE=100G
-SIZE=1T
+#SIZE=1T
 #SIZE=1G
-#SIZE=10G
+SIZE=10G
 #INPUT=/${SIZE}-terasort-input
 #OUTPUT=/${SIZE}-terasort-output
 
@@ -26,13 +27,12 @@ then
     mkdir ./$LOGDIR
 fi
 
-DATE=`date +%Y-%m-%d:%H:%M:%S`
+DATE=`date +%Y%m%d%H%M%S`
 
 RESULTSFILE="./$LOGDIR/terasort_results_$DATE"
 
-
-INPUT=/data/sandbox/poc/teragen/${SIZE}-terasort-input
-OUTPUT=/data/sandbox/poc/teragen/${SIZE}-terasort-output
+INPUT=/poc/teragen/${SIZE}-terasort-input
+OUTPUT=/poc/teragen/${SIZE}-terasort-output
 
 # terasort.sh
 # Kill any running MapReduce jobs
@@ -60,6 +60,6 @@ time hadoop jar $MR_EXAMPLES_JAR terasort \
 -Dmapreduce.task.io.sort.mb=384 \
 -Dyarn.app.mapreduce.am.command.opts=-Xmx768m \
 -Dyarn.app.mapreduce.am.resource.mb=1024 \
--Dmapred.reduce.tasks=92 \
+-Dmapred.reduce.tasks=4 \
 -Dmapreduce.terasort.output.replication=1 \
 ${INPUT} ${OUTPUT} >> $RESULTSFILE 2>&1
